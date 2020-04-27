@@ -9,7 +9,7 @@ require('dotenv').config({ path: 'variables.env'});
 
 
 const crearToken = (usuario, secreta, expiresIn) => {
-    console.log(usuario);
+    // console.log(usuario);
     const { id, email, nombre, apellido } = usuario;
 
     return jwt.sign( { id, email, nombre, apellido } , secreta, { expiresIn });
@@ -18,10 +18,11 @@ const crearToken = (usuario, secreta, expiresIn) => {
 //Resolvers
 const resolvers = {
     Query: {
-        obtenerUsuario: async (_, { token }) => {
-            const usuarioId = await jwt.verify(token, process.env.SECRETA)
+        obtenerUsuario: async (_,  {}, ctx) => {
+            // const usuarioId = await jwt.verify(token, process.env.SECRETA)
 
-            return usuarioId
+            // return usuarioId
+            return ctx.usuario;
         },
         obtenerProductos: async () => {
             try {
