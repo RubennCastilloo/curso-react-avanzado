@@ -1,6 +1,7 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import {useRouter} from 'next/router'
+import client from '../config/apollo';
 
 const OBTENER_USUARIO = gql `
     query obtenerUsuario {
@@ -35,12 +36,13 @@ const Header = () => {
 
     const cerrarSesion = () => {
         localStorage.removeItem('token');
+        client.resetStore()
         router.push('/login');
     }
 
     return(
-        <div className="flex justify-between mb-6">
-             <p className="mr-2">Hola: {nombre} {apellido}</p>
+        <div className="sm:flex sm:justify-between mb-6">
+             <p className="mr-2 mb-5 lg:mb-0">Hola: {nombre} {apellido}</p>
 
              <button 
                 onClick={() => cerrarSesion()}

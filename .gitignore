@@ -1,4 +1,6 @@
-
+variables.env
+node_modules
+DS_Store
 node_modules/.bin/apollo-pbjs
 node_modules/.bin/apollo-pbts
 node_modules/.bin/is-ci

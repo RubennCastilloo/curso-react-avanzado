@@ -2,6 +2,7 @@ import Layout from '../components/Layout';
 import Producto from '../components/Producto';
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
+import {useEffect} from 'react'; //Se requiere useEffect para hacer polling
 
 const OBTENER_PRODUCTOS = gql`
     query obtenerProductos {
@@ -15,9 +16,18 @@ const OBTENER_PRODUCTOS = gql`
     }
 `;
 
-const Productos = () =>{
+const Productos = () => {
     //Consultar los productos
-    const { data, loading, error } = useQuery(OBTENER_PRODUCTOS);
+    const { data, loading, error, startPolling, stopPolling } = useQuery(OBTENER_PRODUCTOS);
+
+    //Hacemos consulta a la base de datos si hay algun cambio
+    useEffect (() => {
+        startPolling(1000);
+        return() => {
+            stopPolling();
+        }
+    }, [startPolling, stopPolling])
+
     // console.log(data);
     // console.log(loading);
     // console.log(error);

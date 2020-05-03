@@ -17,7 +17,7 @@ const ProductoSchema = mongoose.Schema({
     vendedor: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'Cliente'
+        ref: 'Usuario'
     },
     estado: {
         type: String,
