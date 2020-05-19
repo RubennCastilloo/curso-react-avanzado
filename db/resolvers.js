@@ -209,7 +209,7 @@ const resolvers = {
             return {
                 token: crearToken( existeUsuario, process.env.SECRETA, '24h' )
             }
-            
+
         },
         nuevoProducto: async (_, { input }) => {
             try {
@@ -218,7 +218,7 @@ const resolvers = {
                 //Almacenar en la base de datos
 
                 const resultado = await producto.save();
-                
+
                 return resultado;
             } catch(error) {
                 console.log(error);
@@ -264,7 +264,7 @@ const resolvers = {
 
             const nuevoCliente = new Cliente(input);
 
-            // Asignar el vendedor 
+            // Asignar el vendedor
             nuevoCliente.vendedor = ctx.usuario.id;
 
             // Guardarlo en la base de datos
@@ -278,11 +278,11 @@ const resolvers = {
                 console.log(error);
             }
 
-            
+
         },
         actualizarCliente: async (_, {id, input}, ctx) => {
             //Verificar si existe o no
-            let cliente = await Cliente.findById(id); 
+            let cliente = await Cliente.findById(id);
 
             if(!cliente) {
                 throw new Error('Ese cliente no existe');
@@ -298,7 +298,7 @@ const resolvers = {
         },
         eliminarCliente: async (_, {id}, ctx) => {
             //Verificar si existe o no
-            let cliente = await Cliente.findById(id); 
+            let cliente = await Cliente.findById(id);
 
             if(!cliente) {
                 throw new Error('Ese cliente no existe');
@@ -315,7 +315,7 @@ const resolvers = {
 
             const { cliente } = input
             // Verificar si cliente existe o no
-            let clienteExiste = await Cliente.findById(cliente); 
+            let clienteExiste = await Cliente.findById(cliente);
 
             if(!clienteExiste) {
                 throw new Error('Ese cliente no existe');
@@ -375,27 +375,27 @@ const resolvers = {
             if(input.pedido) {
                 for await ( const articulo of input.pedido) {
                     const { id } = articulo;
-    
+
                     const producto = await Producto.findById(id);
-    
+
                     if(articulo.cantidad > producto.existencia) {
                         throw new Error(`El articulo ${producto.nombre} excede la cantidad disponible`);
                     } else {
                         // Restar la cantidad a lo disponible
                         producto.existencia = producto.existencia - articulo.cantidad;
-    
+
                         await producto.save();
                     }
                 }
             }
-            
+
             // Guardar el pedido
             const resultado = await Pedido.findOneAndUpdate({_id: id}, input, { new: true});
             return resultado;
         },
         eliminarPedido: async (_, {id}, ctx) => {
             //Verificar si existe o no
-            const pedido = await Pedido.findById(id); 
+            const pedido = await Pedido.findById(id);
 
             if(!pedido) {
                 throw new Error('El pedido no existe');

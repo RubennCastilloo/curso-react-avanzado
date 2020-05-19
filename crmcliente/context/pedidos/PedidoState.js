@@ -34,6 +34,12 @@ const PedidoState = ({children}) => {
      const agregarProducto = productosSeleccionados => {
 
         let nuevoState;
+
+        //Linea que arregla el bug que hacia que al dar click en tachita de multiselect se crasheara la aplicacion
+        if(!productosSeleccionados){
+            productosSeleccionados = [];
+        }
+
         if(state.productos.length > 0) {
             //Tomar del segudno arreglo una copia para asignarlo al primero
             nuevoState = productosSeleccionados.map( producto => {

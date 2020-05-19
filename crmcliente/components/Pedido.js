@@ -26,7 +26,12 @@ const OBTENER_PEDIDOS = gql`
 
 const Pedido = ({pedido}) => {
 
-    const {id, total, cliente: {nombre, apellido, telefono, email}, estado, cliente } = pedido;
+    // const {id, total, cliente: {nombre, apellido, telefono, email}, estado, cliente } = pedido; //Anterior con Bug
+
+    const {id, total, estado, cliente } = pedido;
+
+    if(!cliente) return null;
+    const { nombre, apellido, telefono, email } = cliente;
 
     //Mutation para cambiar el estado de un pedido
     const [actualizarPedido] = useMutation(ACTUALIZAR_PEDIDO);

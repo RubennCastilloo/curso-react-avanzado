@@ -27,10 +27,12 @@ const Header = () => {
     //Proteger que no accedamos a data antes de tener resultados
     if(loading) return 'Cargando...';
 
-    //Si no hay informacion
-    if(!data) {
-        return router.push('/login');
-    }
+    //Si no hay informacion Linea con bug
+    // if(!data) {
+    //     return router.push('/login');
+    // }
+
+    if(!data || data && !data.obtenerUsuario) return router.push('/login');
 
     const { nombre, apellido } = data.obtenerUsuario;
 

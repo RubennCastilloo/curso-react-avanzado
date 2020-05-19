@@ -69,7 +69,7 @@ const Login = () => {
                 setTimeout(() => {
                     guardarMensaje(null);
                     router.push('/');
-                }, 2000);
+                }, 3000);
 
                 //Redireccionar hacia clientes
 
